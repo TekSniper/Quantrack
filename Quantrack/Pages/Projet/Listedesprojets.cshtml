@@ -1,0 +1,13 @@
+﻿@page
+@model Quantrack.Pages.Projet.ListedesprojetsModel
+@{
+    ViewData["title"] = "Projets";
+}
+@if(Model.LaSession != null)
+{
+    <h3>Login : @Model.LaSession</h3>
+}
+@if (Model.LaSession == null)
+{
+
+}
