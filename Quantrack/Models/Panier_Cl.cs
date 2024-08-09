@@ -11,6 +11,7 @@ namespace Quantrack.Models
         public DateTime DateDebut { get; set; }
         public DateTime DateFin { get; set; }
         public string Statut { get; set; }
+        public decimal Montant { get; set; }
         public string LoginUser { get; set; }
 
         public bool AddToCart()
@@ -18,15 +19,16 @@ namespace Quantrack.Models
             using (var cnx=new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new MySqlCommand("insert into panier(service_id,nomprojet,description,datedebut,datefin,statut,statut,user_login) " +
-                    "values (@service,@nomproj,@descrip,@dated,@datef,@statut,@login)", cnx);
-                cm.Parameters.AddWithValue("@service", this.ServideId);
-                cm.Parameters.AddWithValue("@nomproj", this.NomProjet);
-                cm.Parameters.AddWithValue("@descrip", this.Description);
-                cm.Parameters.AddWithValue("@dated", this.DateDebut);
-                cm.Parameters.AddWithValue("@datef", this.DateFin);
-                cm.Parameters.AddWithValue("@statut", this.Statut);
-                cm.Parameters.AddWithValue("@login", this.LoginUser);
+                var cm = new MySqlCommand("AddToCart", cnx);
+                cm.CommandType = System.Data.CommandType.StoredProcedure;
+                cm.Parameters.Add(new MySqlParameter("v_service", this.ServideId));
+                cm.Parameters.Add(new MySqlParameter("v_nom", this.NomProjet));
+                cm.Parameters.Add(new MySqlParameter("v_descri", this.Description));
+                cm.Parameters.Add(new MySqlParameter("v_dated", this.DateDebut));
+                cm.Parameters.Add(new MySqlParameter("v_datef", this.DateFin));
+                cm.Parameters.Add(new MySqlParameter("v_statut", this.Statut));
+                cm.Parameters.Add(new MySqlParameter("v_user", this.LoginUser));
+                cm.Parameters.Add(new MySqlParameter("v_montant", this.Montant));
 
                 var i = cm.ExecuteNonQuery();
                 if (i != 0)
