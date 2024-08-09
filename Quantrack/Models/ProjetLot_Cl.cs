@@ -15,8 +15,9 @@ namespace Quantrack.Models
                 cnx.Open();
                 var cm = new MySqlCommand("AddProjetLot", cnx);
                 cm.CommandType = System.Data.CommandType.StoredProcedure;
-                cm.Parameters.Add(new MySqlParameter("projetid", ProjetId));
-                cm.Parameters.Add(new MySqlParameter("lotid", LotId));
+                //MySqlParameter value = new MySqlParameter("projetid", ProjetId);
+                cm.Parameters.Add(new MySqlParameter("projetid",MySqlDbType.Int32, ProjetId));
+                cm.Parameters.Add(new MySqlParameter("lotid",MySqlDbType.Int32, LotId));
 
                 var  i = cm.ExecuteNonQuery();  
                 if(i!=0) 
