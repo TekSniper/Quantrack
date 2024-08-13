@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Npgsql;
 
 namespace Quantrack.Models
 {
@@ -19,7 +20,7 @@ namespace Quantrack.Models
             using (var cnx=new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new MySqlCommand("AddToCart", cnx);
+                var cm = new NpgsqlCommand("AddToCart", cnx);
                 cm.CommandType = System.Data.CommandType.StoredProcedure;
                 cm.Parameters.Add(new MySqlParameter("v_service", this.ServideId));
                 cm.Parameters.Add(new MySqlParameter("v_nom", this.NomProjet));

@@ -14,7 +14,8 @@ namespace Quantrack.Pages
 
         public void OnGet()
         {
-
+            Response.Redirect("/Authentification");
+            return;
         }
     }
 }

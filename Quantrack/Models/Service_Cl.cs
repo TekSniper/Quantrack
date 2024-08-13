@@ -1,4 +1,6 @@
-﻿namespace Quantrack.Models
+﻿using Npgsql;
+
+namespace Quantrack.Models
 {
     public class Service_Cl
     {

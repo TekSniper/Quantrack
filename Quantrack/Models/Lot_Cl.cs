@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Npgsql;
 
 namespace Quantrack.Models
 {
@@ -15,7 +16,7 @@ namespace Quantrack.Models
             using(var cnx = new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new MySqlCommand("insert into lot(client_id,datecreation,statut,user_id) values " +
+                var cm = new NpgsqlCommand("insert into lot(client_id,datecreation,statut,user_id) values " +
                     "(@client,@date,@statut,@user)", cnx);
                 cm.Parameters.AddWithValue("@client", this.ClientId);
                 cm.Parameters.AddWithValue("@date", this.DateCreation);
@@ -34,7 +35,7 @@ namespace Quantrack.Models
             using(var cnx = new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new MySqlCommand("update lot set statut=@statut where id=@id", cnx);
+                var cm = new NpgsqlCommand("update lot set statut=@statut where id=@id", cnx);
                 cm.Parameters.AddWithValue("@statut", Statut);
                 cm.Parameters.AddWithValue("@id", Id);
 

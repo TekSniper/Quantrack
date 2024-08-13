@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Data;
 using System.Data.Common;
+using Npgsql;
 
 namespace Quantrack.Models
 {
@@ -19,7 +20,7 @@ namespace Quantrack.Models
             using (var cnx = new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new MySqlCommand("select count(*) from utilisateur", cnx);
+                var cm = new NpgsqlCommand("select count(*) from utilisateur", cnx);
                 var reader = cm.ExecuteReader();
                 var check = false;
                 if (reader.Read())
@@ -38,8 +39,8 @@ namespace Quantrack.Models
             using (var cnx = new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new MySqlCommand("select * from utilisateur where login=@login", cnx);
-                cm.Parameters.AddWithValue("@login", this.Login);
+                var cm = new NpgsqlCommand("select * from utilisateur where login=@login", cnx);
+                cm.Parameters.AddWithValue("@login", this.Login.ToLower());
                 var reader = cm.ExecuteReader();
                 if (reader.Read())
                     return true;
@@ -52,10 +53,10 @@ namespace Quantrack.Models
             using (var cnx = new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new MySqlCommand("select * from utilisateur where statut=@status and login=@login", cnx);
+                var cm = new NpgsqlCommand("select * from utilisateur where statut=@status and login=@login", cnx);
 
                 cm.Parameters.AddWithValue("@status", 1);
-                cm.Parameters.AddWithValue("@login", this.Login);
+                cm.Parameters.AddWithValue("@login", this.Login.ToLower());
                 var reader = cm.ExecuteReader();
                 if(reader.Read())
                     return true;
@@ -68,8 +69,9 @@ namespace Quantrack.Models
             using (var cnx = new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new MySqlCommand("select * from utilisateur where login=@login and mot_de_passe=@pwd", cnx);
-                cm.Parameters.AddWithValue("@login",this.Login);
+                var cm = new NpgsqlCommand("select * from utilisateur where login=@login and mot_de_passe=@pwd", cnx);
+                //cm.CommandType = CommandType.StoredProcedure;
+                cm.Parameters.AddWithValue("@login", this.Login.ToLower());
                 cm.Parameters.AddWithValue("@pwd",this.MotDePasse);
                 var reader = cm.ExecuteReader();
                 if (reader.Read())
@@ -83,8 +85,8 @@ namespace Quantrack.Models
             using(var cnx = new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new MySqlCommand("select * from utilisateur where login=@login", cnx);
-                cm.Parameters.AddWithValue("@login", Login);
+                var cm = new NpgsqlCommand("select * from utilisateur where login=@login", cnx);
+                cm.Parameters.AddWithValue("@login", Login.ToLower());
                 var reader = cm.ExecuteReader();
                 if(reader.Read())
                     this.Type = reader.GetString(5);

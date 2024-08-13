@@ -59,7 +59,7 @@ namespace Quantrack.Pages
                                 {
                                     HttpContext.Session.SetString("Login", user.Login);
                                     HttpContext.Session.SetString("Type", user.GetTypeUser());
-                                    Response.Redirect("/Projet/Listedesprojets");
+                                    Response.Redirect("/Dash/Tableaudebord");
                                 }
                                 break;
                             case false:

@@ -1,23 +1,102 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="fr-fr" data-theme="light">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Quantrack</title>
     <link href="~/lib/metro-lib/lib/icons.css" rel="stylesheet" />
     @* <link href="~/lib/metro-lib/lib/metro.css" rel="stylesheet" /> *@
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/bulma-1.0.1/bulma/css/bulma.min.css" rel="stylesheet" />
+    <link href="~/lib/bulma-1.0.1/bulma/css/bulma.css" rel="stylesheet" />
+    @* <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap.rtl.css" rel="stylesheet" />
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" /> *@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Quantrack.styles.css" asp-append-version="true" />
     <link rel="icon" type="image/x-icon" href="~/img/OIG1.yi3iuBtERg0sf4ESg.jpeg" />
+
+    <!-- Style liste -->
+    <style type="text/css">
+        .nav{
+            list-style:none;
+        }
+    </style>
+
+    <!-- Style side menu -->
+
+    @* <style type="text/css">
+
+        .rotate {
+            transform: rotate(90deg);
+        }
+
+        .menu {
+            left: 0;
+            /*margin-top:50px;*/
+        }
+
+            .menu .menu-list .list {
+                position: relative;
+                cursor: pointer;
+            }
+
+                .menu .menu-list .list a {
+                    display: block;
+                    color: #363636;
+                    text-decoration: none;
+                    padding: 5px 30px;
+                    line-height: 30px;
+                }
+
+                    .menu .menu-list .list a:hover {
+                        background: #363636;
+                        color: white;
+                        transition: 0.3s ease;
+                    }
+
+                    .menu .menu-list .list a .dropdown {
+                        position: absolute;
+                        right: 0;
+                        margin: 7.5px;
+                        transition: 0.3s ease;
+                    }
+
+                .menu .menu-list .list .sub-menu {
+                    display: none;
+                }
+
+                    .menu .menu-list .list .sub-menu a {
+                        display: block;
+                        color: #363636;
+                        text-decoration: none;
+                        padding: 5px 30px;
+                        line-height: 30px;
+                    }
+
+                        .menu .menu-list .list .sub-menu a:hover {
+                            background: #363636;
+                            color: white;
+                            transition: 0.3s ease;
+                        }
+
+                        .menu .menu-list .list .sub-menu a .dropdown-sub {
+                            position: absolute;
+                            right: 15px;
+                            margin: 7.5px;
+                            transition: 0.3s ease;
+                        }
+
+                    .menu .menu-list .list .sub-menu .sub-menu-sub {
+                        display: none;
+                    }
+    </style> *@
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
+                <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Menu</button>&nbsp;
                 <a class="navbar-brand" asp-area="" asp-page="/Index">Quantrack</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -26,8 +105,21 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <div class="container-fluid">
+    <div class="container-fluid">
+        <div class="bg-dark offcanvas offcanvas-start text-bg-dark" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <p>
+                    <ul class="nav">
+                        <li class="nav-item"><a href="#">Tableau de bord</a></li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+        <div>
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>

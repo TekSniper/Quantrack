@@ -4,46 +4,47 @@
     Layout = "_LayoutAuth";
     ViewData["title"] = "Authentification";
 }
-<div class="row justify-content-center">
-    <div class="col-xl-5 col-lg-4 col-md-4">
-        @if(Model.WarningMessage != string.Empty)
-        {
-            <div class="alert alert-warning" role="alert">
-                <p>
-                    <h3>Attention !</h3>
-                </p>
-                <p>@Model.WarningMessage</p>
-            </div>
-        }
-        @if(Model.ErrorMessage != string.Empty)
-        {
-            <div class="alert alert-danger" role="alert">
-                <p>
-                    <h3>Oups !</h3>
-                </p>
-                <p>@Model.ErrorMessage</p>
-            </div>
-        }
-        <div class="card">
-            <div class="card-body">
-                @* <span class="mx-auto">
-                    <i class="fa-solid fa-circle-user" width="50" height="50"></i>
-                </span> *@
-                <h3 class="text-center">Authentification</h3>
-                <form method="post">
-                    <div class="mb-3">
-                        <label for="login" class="form-label">ID</label>
-                        <input type="text" name="login" class="form-control" id="login" placeholder="Login ou Email" value="@Model.user.Login">
+<div class="container">
+    <div class="columns is-centered">
+        <div class="column is-6-tablet is-5-desktop is-4-widescreen">
+            @if (Model.WarningMessage != string.Empty)
+            {
+                <div class="notification is-light is-warning">
+                    <button class="delete"></button>
+                    <p>
+                        <h3 class="title">Attention !</h3>
+                    </p>
+                    <p>@Model.WarningMessage</p>
+                </div>
+            }
+            @if (Model.ErrorMessage != string.Empty)
+            {
+                <div class="notification is-light is-danger">
+                    <button class="delete"></button>
+                    <p>
+                        <h3 class="title">Oups !</h3>
+                    </p>
+                    <p>@Model.ErrorMessage</p>
+                </div>
+            }
+            <form method="post" class="box">
+                <div class="field">
+                    <label for="login">ID</label>
+                    <div class="control">
+                        <input type="text" id="login" class="input" name="login" placeholder="Login ou Email" autofocus value="@Model.user.Login" />
                     </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Mot de passe</label>
-                        <input type="password" name="pwd" class="form-control" id="password" placeholder="Mot de passe" value="@Model.user.Login">
+                </div>
+                <div class="field">
+                    <label for="pwd">Mot de passe</label>
+                    <div class="control">
+                        <input type="password" id="pwd" class="input" name="pwd" placeholder="Mot de passe" value="@Model.user.MotDePasse" />
                     </div>
-                    <button type="submit" class="btn btn-outline-success">
-                        Se connecter
-                    </button>
-                </form>
-            </div>
+                </div>
+                <div class="field">
+                    <input type="submit" class="button is-primary is-outlined" value="Se connecter" />
+                </div>
+            </form>
+            
         </div>
     </div>
 </div>
