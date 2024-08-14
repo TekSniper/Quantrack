@@ -38,5 +38,48 @@ namespace Quantrack.Models
                     return false;
             }
         }
+        public int CountInCart()
+        {
+            using(var cnx =  new DbConnexion().GetConnection())
+            {
+                cnx.Open();
+                var cm = new NpgsqlCommand("select count(*) from panier p where p.user_login = @login", cnx);
+                cm.Parameters.AddWithValue("@login", this.LoginUser);
+                var reader = cm.ExecuteReader();
+                var c = 0;
+                if(reader.Read())
+                    c = reader.GetInt32(0);
+
+
+                return c;
+            }
+        }
+        public bool DeleteAllInCartForUser()
+        {
+            using(var cnx = new DbConnexion().GetConnection())
+            {
+                cnx.Open();
+                var cm = new NpgsqlCommand("delete from panier  where user_login=@login", cnx);
+                cm.Parameters.AddWithValue("@login", LoginUser);
+                var i = cm.ExecuteNonQuery();
+
+                if (i != 0) return true;
+                else return false;
+            }
+        }
+        public bool RemoveItemInCart()
+        {
+            using (var cnx = new DbConnexion().GetConnection())
+            {
+                cnx.Open();
+                var cm = new NpgsqlCommand("delete from panier where user_login=@login and id=@id", cnx);
+                cm.Parameters.AddWithValue("@login", this.LoginUser);
+                cm.Parameters.AddWithValue("@id", this.Id);
+                var i = cm.ExecuteNonQuery();
+
+                if (i != 0) return true;
+                else return false;
+            }
+        }
     }
 }

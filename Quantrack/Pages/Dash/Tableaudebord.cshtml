@@ -1,4 +1,92 @@
 ﻿@page
 @model Quantrack.Pages.Dash.TableaudebordModel
 @{
+    ViewData["title"] = "Tableau de bord";
 }
+<div>
+    <div class="columns is-centered">
+        <div class="column m-2 has-text-centered box">
+            <h3 class="title">+50</h3>
+            <h5 class="subtitle">Projets réalisés</h5>
+            <span class="tag is-warning">Graphic Design</span>
+        </div>
+        <div class="column m-2 has-text-centered box">
+            <h3 class="title">+5</h3>
+            <h5 class="subtitle">Projets réalisés</h5>
+            <span class="tag is-success">IT Dev.</span>
+        </div>
+        <div class="column m-2 has-text-centered box">
+            <h3 class="title">+55</h3>
+            <h5 class="subtitle">Clients</h5>
+            <span class="tag is-info">Client</span>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column is-7 mr-2">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">Les projets en cours</p>
+                </header>
+                <div class="card-content">
+                    <div class="content">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>N°</th>
+                                    <th>Nom du projet</th>
+                                    <th>Date Fin</th>
+                                    <th>Action</th>
+                                </tr>                                
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Logo Design</td>
+                                    <td>2024-08-17</td>
+                                    <td><a class="tag is-success">Details</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <span class="card-footer-item">
+                        <i class="fa-solid fa-spinner"></i>&nbsp; Vous avez 15 projets en cours...
+                    </span>
+                </footer>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">Les projets à clôturer</p>
+                </header>
+                <div class="card-content">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>N°</th>
+                                <th>Nom du projet</th>
+                                <th>Date Fin</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Logo Design</td>
+                                <td>2024-08-17</td>
+                                <td><a class="tag is-warning">Voir</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <footer class="card-footer">
+                    <span class="card-footer-item">
+                        <i class="fa-solid fa-spinner"></i>&nbsp; Vous devez clôturer 3 projets
+                    </span>
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>

@@ -15,122 +15,120 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Quantrack.styles.css" asp-append-version="true" />
     <link rel="icon" type="image/x-icon" href="~/img/OIG1.yi3iuBtERg0sf4ESg.jpeg" />
+    <link href="~/lib/fontawesome-free-6.6.0-web/css/all.min.css" rel="stylesheet" />
+    <link href="~/lib/fontawesome-free-6.6.0-web/css/all.css" rel="stylesheet" />
 
     <!-- Style liste -->
     <style type="text/css">
-        .nav{
-            list-style:none;
+        .nav {
+            list-style: none;
         }
     </style>
 
-    <!-- Style side menu -->
+    <!-- Font html -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
 
-    @* <style type="text/css">
-
-        .rotate {
-            transform: rotate(90deg);
-        }
-
-        .menu {
-            left: 0;
-            /*margin-top:50px;*/
-        }
-
-            .menu .menu-list .list {
-                position: relative;
-                cursor: pointer;
-            }
-
-                .menu .menu-list .list a {
-                    display: block;
-                    color: #363636;
-                    text-decoration: none;
-                    padding: 5px 30px;
-                    line-height: 30px;
-                }
-
-                    .menu .menu-list .list a:hover {
-                        background: #363636;
-                        color: white;
-                        transition: 0.3s ease;
-                    }
-
-                    .menu .menu-list .list a .dropdown {
-                        position: absolute;
-                        right: 0;
-                        margin: 7.5px;
-                        transition: 0.3s ease;
-                    }
-
-                .menu .menu-list .list .sub-menu {
-                    display: none;
-                }
-
-                    .menu .menu-list .list .sub-menu a {
-                        display: block;
-                        color: #363636;
-                        text-decoration: none;
-                        padding: 5px 30px;
-                        line-height: 30px;
-                    }
-
-                        .menu .menu-list .list .sub-menu a:hover {
-                            background: #363636;
-                            color: white;
-                            transition: 0.3s ease;
-                        }
-
-                        .menu .menu-list .list .sub-menu a .dropdown-sub {
-                            position: absolute;
-                            right: 15px;
-                            margin: 7.5px;
-                            transition: 0.3s ease;
-                        }
-
-                    .menu .menu-list .list .sub-menu .sub-menu-sub {
-                        display: none;
-                    }
-    </style> *@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Menu</button>&nbsp;
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Quantrack</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <nav class="navbar mb-auto is-fixed-top has-shadow 	" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item">
+                    <h3 class="title">Quantrack</h3>
+                </a>
+                <a role="button" class="navbar-burger is-active" aria-label="menu" aria-expanded="false" data-target="navMenu">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
             </div>
+            <div class="navbar-menu is-active" id="navMenu">
+                <div class="navbar-end">
+                    <span class="navbar-item"><strong>Utilisateur connecté :</strong>&nbsp;@Model.LoginUser</span>
+                </div>
+            </div>
+            <hr class="navbar-divider" />
         </nav>
     </header>
-    <div class="container-fluid">
-        <div class="bg-dark offcanvas offcanvas-start text-bg-dark" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Menu</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <p>
-                    <ul class="nav">
-                        <li class="nav-item"><a href="#">Tableau de bord</a></li>
+    <div class="container mt-6 pt-4">
+        <div class="columns">
+            <div class="column is-3">
+                <aside class="menu has-text-dark">
+                    <p class="menu-label">Menu utilisateur</p>
+                    <ul class="menu-list">
+                        <li><a><i class="fa-solid fa-gauge"></i> Tableau de bord</a></li>
                     </ul>
-                </p>
+                    <ul class="menu-list">
+                        <li><a><i class="fa-solid fa-diagram-project"></i> Projets</a></li>
+                        <li>
+                            <ul>
+                                <li><a>Nouveau projet</a></li>
+                                <li><a>Voir le panier</a></li>
+                                <li><a>Les derniers projets</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="menu-list">
+                        <li><a><i class="fa-solid fa-person-rays"></i> Client</a></li>
+                        <li>
+                            <ul>
+                                <li><a>Les clients</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    @if (Model.UserType == "Admin")
+                    {
+                        <p class="menu-label">Administrateur</p>
+                        <ul class="menu-list">
+                            <li><a><i class="fa-solid fa-users-gear"></i> Utilisateurs</a></li>
+                            <li>
+                                <ul>
+                                    <li><a>Nouveau compte</a></li>
+                                    <li><a>Liste des utilisateurs</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="menu-list">
+                            <li><a><i class="fa-solid fa-laptop-file"></i> Services</a></li>
+                            <li>
+                                <ul>
+                                    <li><a>Nouveau Service</a></li>
+                                    <li><a>Les Services</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    }
+                </aside>
+            </div>
+            <div class="column">
+                <div>
+                    <main role="main" class="pb-3">
+                        <div class="level">
+                            <div class="level-left">
+                                <p class="subtitle"><i class="fa-solid fa-gauge-high"></i> @Model.PageTitle</p>
+                            </div>    
+                            <div class="level-right">
+                                <a class="button is-success is-outlined">
+                                    <span><i class="fa-solid fa-cart-shopping"></i></span>&nbsp; @Model.NumPanier &nbsp; Voir le panier
+                                </a>                                                                 
+                            </div>
+                        </div>
+                        @RenderBody()
+                    </main>
+                </div>
             </div>
         </div>
-        <div>
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
-        </div>
+
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Quantrack - Developer : T€k$nip€r
-        </div>
-    </footer>
+    @* <footer class="border-top footer text-muted">
+    <div class="container">
+    &copy; 2024 - Quantrack - Developer : T€k$nip€r
+    </div>
+    </footer> *@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -144,5 +142,29 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Get all "navbar-burger" elements
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+            // Add a click event on each of them
+            $navbarBurgers.forEach(el => {
+                el.addEventListener('click', () => {
+
+                    // Get the target from the "data-target" attribute
+                    const target = el.dataset.target;
+                    const $target = document.getElementById(target);
+
+                    // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                    el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+
+                });
+            });
+
+        });
+    </script>
 </body>
 </html>
