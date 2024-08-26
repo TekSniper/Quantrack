@@ -10,6 +10,7 @@ namespace Quantrack.Pages.Dash
         public string LoginUser { get; set; } = string.Empty;
         public string UserType { get; set; } = string.Empty;
         public string PageTitle { get; set; } = "Tableau de bord";
+        public string PageIcon { get; set; } = "fa-solid fa-gauge-high";
         public int NumPanier { get; set; }
         public void OnGet()
         {

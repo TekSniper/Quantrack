@@ -1,4 +1,106 @@
 ﻿@page
 @model Quantrack.Pages.Projet.PanierModel
 @{
+    ViewData["title"] = "Panier";
 }
+<div>
+    <div class="columns is-centered">
+        <div class="column m-2 box">
+            <form method="post">
+                <h4 class="subtitle">Infos du client</h4>
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label" for="prenom">Prénom</label>
+                            <div class="control">
+                                <input class="input" type="text" name="prenom" placeholder="Prénom" id="prenom" value="@Model.PrenomClient" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label" for="nom">Nom</label>
+                            <div class="control">
+                                <input class="input" type="text" name="nom" placeholder="Nom" id="nom" value="@Model.NomClient" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label" for="phone">Phone</label>
+                            <div class="control">
+                                <input class="input" type="tel" name="phone" placeholder="Num Tel" id="phone" value="@Model.PhoneClient" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label" for="email">Email</label>
+                            <div class="control">
+                                <input class="input" type="email" name="email" placeholder="Email" id="email" value="@Model.EmailClient" />
+                            </div>
+                        </div>
+                    </div>
+                </div> <br />
+                <h4 class="subtitle">Panier</h4>
+                <div class="columns">
+                    <div class="column m-2">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input type="checkbox" onchange="checkAll(this)" />
+                                    </th>
+                                    <th>N°</th>
+                                    <th>Nom projet</th>
+                                    <th>Date debut</th>
+                                    <th>Date fin</th>
+                                    <th>Montant</th>
+                                </tr>
+                            </thead>
+                            <tbody>                                
+                                @foreach(var p in Model.GetPanier())
+                                {
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" name="list_projet" id="projet" value="@p.Id" />
+                                        </td>
+                                        <td>@Model.IncrementCounter()</td>
+                                        <td>@p.NomProjet</td>
+                                        <td>@p.DateDebut</td>
+                                        <td>@p.DateFin</td>
+                                        <td>@p.Montant CDF</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <input type="submit" value="Enregistrer les projets" class="button is-success" />
+                        </div>
+                    </div>
+                </div>                
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    var checkboxes = document.querySelectorAll("input[type='checkbox']");
+
+    function checkAll(myCheckbox) {
+        if (myCheckbox.checked == true) {
+            checkboxes.forEach(function (checkbox) {
+                checkbox.checked = true;
+            });
+        }
+        else {
+            checkboxes.forEach(function (checkbox) {
+                checkbox.checked = false;
+            });
+        }
+    }
+</script>

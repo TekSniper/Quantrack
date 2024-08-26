@@ -59,14 +59,14 @@
                 <aside class="menu has-text-dark">
                     <p class="menu-label">Menu utilisateur</p>
                     <ul class="menu-list">
-                        <li><a><i class="fa-solid fa-gauge"></i> Tableau de bord</a></li>
+                        <li><a href="/Dash/TableauDeBord"><i class="fa-solid fa-gauge"></i> Tableau de bord</a></li>
                     </ul>
                     <ul class="menu-list">
                         <li><a><i class="fa-solid fa-diagram-project"></i> Projets</a></li>
                         <li>
                             <ul>
-                                <li><a>Nouveau projet</a></li>
-                                <li><a>Voir le panier</a></li>
+                                <li><a href="/Projet/Creerprojet">Nouveau projet</a></li>
+                                <li><a href="/Projet/Panier">Voir le panier</a></li>
                                 <li><a>Les derniers projets</a></li>
                             </ul>
                         </li>
@@ -108,10 +108,10 @@
                     <main role="main" class="pb-3">
                         <div class="level">
                             <div class="level-left">
-                                <p class="subtitle"><i class="fa-solid fa-gauge-high"></i> @Model.PageTitle</p>
+                                <p class="subtitle"><i class="@Model.PageIcon"></i> @Model.PageTitle</p>
                             </div>    
                             <div class="level-right">
-                                <a class="button is-success is-outlined">
+                                <a class="button is-success is-outlined" href="/Projet/Panier">
                                     <span><i class="fa-solid fa-cart-shopping"></i></span>&nbsp; @Model.NumPanier &nbsp; Voir le panier
                                 </a>                                                                 
                             </div>

@@ -1,4 +1,111 @@
 ﻿@page
 @model Quantrack.Pages.Projet.CreerprojetModel
 @{
+    ViewData["titla"] = "Nouveau projet";
 }
+<div>
+    <div class="columns is-centered">
+        <div class="column m-2">
+            @if(Model.SuccessMessage != string.Empty)
+            {
+                <div class="notification is-light is-success">
+                    <button class="delete"></button>
+                    <p>
+                        <h3 class="title">Succès !</h3>
+                    </p>
+                    <p>@Model.SuccessMessage</p>
+                </div>
+            }
+
+            @if (Model.WarningMessage != string.Empty)
+            {
+                <div class="notification is-light is-warning">
+                    <button class="delete"></button>
+                    <p>
+                        <h3 class="title">Oups ! Attention !</h3>
+                    </p>
+                    <p>@Model.WarningMessage</p>
+                </div>
+            }
+
+            @if (Model.ErrorMessage != string.Empty)
+            {
+                <div class="notification is-light is-danger">
+                    <button class="delete"></button>
+                    <p>
+                        <h3 class="title">Oups, quelque chose s’est mal passé !</h3>
+                    </p>
+                    <p>@Model.ErrorMessage</p>
+                </div>
+            }
+            <form method="post" class="box">
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <label for="Service">Service</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select name="service">
+                                        <option value="0">Selectionnez le service</option>
+                                        @foreach(var s in Model.GetServices())
+                                        {
+                                            <option value="@s.Id">@s.Designation</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label for="nomprojet">Nom projet</label>
+                            <div class="control">
+                                <input type="text" class="input" name="nomprojet" id="nomprojet" value="@Model.panier.NomProjet" placeholder="Nom du projet" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="desc">Description</label>
+                    <div class="control">
+                        <textarea class="textarea" id="desc" name="description" placeholder="Saisissez la description du projet ici....."></textarea>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <label for="dated">Date debut</label>
+                            <div class="control">
+                                <input type="date" class="input" value="@Model.panier.DateDebut" name="date_d" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label for="datef">Date fin</label>
+                            <div action="control">
+                                <input type="date" class="input" value="@Model.panier.DateFin" name="date_f" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label for="montant">Montant</label>
+                            <div class="control">
+                                <input class="input" type="number" value="@Model.panier.Montant" name="montant" placeholder="Montant" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <input type="submit" class="button is-success" value="Ajouter au panier" />
+                    </div>
+                    <div class="control">
+                        <input type="reset" value="Réinitialiser" class="button is-link is-outlined" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

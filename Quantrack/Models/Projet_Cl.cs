@@ -7,20 +7,21 @@ namespace Quantrack.Models
     {
         public int Id { get; set; }
         public int ServideId { get; set; }
-        public string NomProjet { get; set; }
-        public string Description { get; set; }
+        public string NomProjet { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
         public DateTime DateDebut { get; set; }
         public DateTime DateFin { get; set; }
-        public string Statut { get; set; }
+        public string Statut { get; set; } = string.Empty;
         public decimal Montant { get; set; }
-        public string Version { get; set; }
+        public string Version { get; set; } = string.Empty;
+        public int IdLot { get; set; }
 
         public bool CreateProjet()
         {
             using (var cnx = new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new NpgsqlCommand("CreateProjet", cnx);
+                var cm = new MySqlCommand("CreateProjet", cnx);
                 cm.CommandType = System.Data.CommandType.StoredProcedure;
                 cm.Parameters.Add(new NpgsqlParameter("v_service", this.ServideId));
                 cm.Parameters.Add(new NpgsqlParameter("v_nom", this.NomProjet));
@@ -43,7 +44,7 @@ namespace Quantrack.Models
             using (var cnx = new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new NpgsqlCommand("update projet set statut=@statut where id=@id", cnx);
+                var cm = new MySqlCommand("update projet set statut=@statut where id=@id", cnx);
                 cm.Parameters.AddWithValue("@statut",this.Statut);
                 cm.Parameters.AddWithValue("@id", this.Id);
 
@@ -57,7 +58,7 @@ namespace Quantrack.Models
             using (var cnx = new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new NpgsqlCommand("update projet set version_p=@version where id=@id", cnx);
+                var cm = new MySqlCommand("update projet set version_p=@version where id=@id", cnx);
                 cm.Parameters.AddWithValue("@version", this.Statut);
                 cm.Parameters.AddWithValue("@id", this.Id);
 

@@ -16,7 +16,7 @@ namespace Quantrack.Models
             using (var cnx = new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new NpgsqlCommand("insert into client(prenom,nom,phone,email) values " +
+                var cm = new MySqlCommand("insert into client(prenom,nom,phone,email) values " +
                     "(@prenom,@nom,@phone,@email)", cnx);
                 cm.Parameters.AddWithValue("@prenom", this.Prenom);
                 cm.Parameters.AddWithValue("@nom", this.Nom);

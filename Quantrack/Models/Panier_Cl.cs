@@ -7,20 +7,23 @@ namespace Quantrack.Models
     {
         public int Id { get; set; }
         public int ServideId { get; set; }
-        public string NomProjet { get; set; }
-        public string Description { get; set; }
+        public string NomProjet { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
         public DateTime DateDebut { get; set; }
         public DateTime DateFin { get; set; }
-        public string Statut { get; set; }
+        public string Statut { get; set; } = string.Empty;
         public decimal Montant { get; set; }
-        public string LoginUser { get; set; }
+        public string LoginUser { get; set; } = string.Empty;
 
         public bool AddToCart()
         {
             using (var cnx=new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new NpgsqlCommand("AddToCart", cnx);
+                var sql = "addtocart";
+                var cm = new MySqlCommand(sql, cnx);
+                //cm.CommandText = sql;
+                //cm.Connection = cnx;
                 cm.CommandType = System.Data.CommandType.StoredProcedure;
                 cm.Parameters.Add(new MySqlParameter("v_service", this.ServideId));
                 cm.Parameters.Add(new MySqlParameter("v_nom", this.NomProjet));
@@ -43,7 +46,7 @@ namespace Quantrack.Models
             using(var cnx =  new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new NpgsqlCommand("select count(*) from panier p where p.user_login = @login", cnx);
+                var cm = new MySqlCommand("select count(*) from panier p where p.user_login = @login", cnx);
                 cm.Parameters.AddWithValue("@login", this.LoginUser);
                 var reader = cm.ExecuteReader();
                 var c = 0;
@@ -59,7 +62,7 @@ namespace Quantrack.Models
             using(var cnx = new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new NpgsqlCommand("delete from panier  where user_login=@login", cnx);
+                var cm = new MySqlCommand("delete from panier  where user_login=@login", cnx);
                 cm.Parameters.AddWithValue("@login", LoginUser);
                 var i = cm.ExecuteNonQuery();
 
@@ -72,7 +75,7 @@ namespace Quantrack.Models
             using (var cnx = new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new NpgsqlCommand("delete from panier where user_login=@login and id=@id", cnx);
+                var cm = new MySqlCommand("delete from panier where user_login=@login and id=@id", cnx);
                 cm.Parameters.AddWithValue("@login", this.LoginUser);
                 cm.Parameters.AddWithValue("@id", this.Id);
                 var i = cm.ExecuteNonQuery();
