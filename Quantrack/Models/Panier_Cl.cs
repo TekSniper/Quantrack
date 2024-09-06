@@ -46,7 +46,7 @@ namespace Quantrack.Models
             using(var cnx =  new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new MySqlCommand("select count(*) from panier p where p.user_login = @login", cnx);
+                var cm = new MySqlCommand("select count(*) from panier p where p.login_user = @login", cnx);
                 cm.Parameters.AddWithValue("@login", this.LoginUser);
                 var reader = cm.ExecuteReader();
                 var c = 0;
@@ -62,7 +62,7 @@ namespace Quantrack.Models
             using(var cnx = new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new MySqlCommand("delete from panier  where user_login=@login", cnx);
+                var cm = new MySqlCommand("delete from panier  where login_user=@login", cnx);
                 cm.Parameters.AddWithValue("@login", LoginUser);
                 var i = cm.ExecuteNonQuery();
 
@@ -75,7 +75,7 @@ namespace Quantrack.Models
             using (var cnx = new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new MySqlCommand("delete from panier where user_login=@login and id=@id", cnx);
+                var cm = new MySqlCommand("delete from panier where login_user=@login and id=@id", cnx);
                 cm.Parameters.AddWithValue("@login", this.LoginUser);
                 cm.Parameters.AddWithValue("@id", this.Id);
                 var i = cm.ExecuteNonQuery();

@@ -58,7 +58,7 @@ namespace Quantrack.Models
             using (var cnx = new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new MySqlCommand("update projet set version_p=@version where id=@id", cnx);
+                var cm = new MySqlCommand("update projet set version=@version where id=@id", cnx);
                 cm.Parameters.AddWithValue("@version", this.Statut);
                 cm.Parameters.AddWithValue("@id", this.Id);
 

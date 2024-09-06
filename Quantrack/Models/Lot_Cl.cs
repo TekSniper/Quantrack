@@ -17,12 +17,12 @@ namespace Quantrack.Models
             using(var cnx = new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new MySqlCommand("insert into lot(client_id,datecreation,statut,user_id) values " +
-                    "(@client,@date,@statut,@user)", cnx);
-                cm.Parameters.AddWithValue("@client", this.ClientId);
-                cm.Parameters.AddWithValue("@date", this.DateCreation);
-                cm.Parameters.AddWithValue("@statut", this.Statut);
-                cm.Parameters.AddWithValue("@user", this.UserId);
+                var cm = new MySqlCommand("CreateLot", cnx);
+                cm.CommandType = System.Data.CommandType.StoredProcedure;
+                cm.Parameters.AddWithValue("v_client", this.ClientId);
+                cm.Parameters.AddWithValue("v_datec", this.DateCreation);
+                cm.Parameters.AddWithValue("v_statut", this.Statut);
+                cm.Parameters.AddWithValue("v_user", this.UserId);
 
                 var i = cm.ExecuteNonQuery();
                 if (i != 0)

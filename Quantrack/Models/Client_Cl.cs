@@ -6,22 +6,22 @@ namespace Quantrack.Models
     public class Client_Cl
     {
         public int Id { get; set; }
-        public string Prenom { get; set; }
-        public string Nom { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
+        public string Prenom { get; set; } = string.Empty;
+        public string Nom { get; set; } = string.Empty;
+        public string Phone { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
 
         public bool AddClient()
         {
             using (var cnx = new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new MySqlCommand("insert into client(prenom,nom,phone,email) values " +
-                    "(@prenom,@nom,@phone,@email)", cnx);
-                cm.Parameters.AddWithValue("@prenom", this.Prenom);
-                cm.Parameters.AddWithValue("@nom", this.Nom);
-                cm.Parameters.AddWithValue("@phone", this.Phone);
-                cm.Parameters.AddWithValue("@email", this.Email);
+                var cm = new MySqlCommand("AddClient", cnx);
+                cm.CommandType = System.Data.CommandType.StoredProcedure;
+                cm.Parameters.AddWithValue("v_prenom", this.Prenom);
+                cm.Parameters.AddWithValue("v_nom", this.Nom);
+                cm.Parameters.AddWithValue("v_phone", this.Phone);
+                cm.Parameters.AddWithValue("v_email", this.Email);
 
                 var i = cm.ExecuteNonQuery();
                 if (i != 0)

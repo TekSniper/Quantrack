@@ -12,12 +12,12 @@ namespace Quantrack.Pages.Projet
         public string PageIcon { get; set; } = "fa-solid fa-cart-shopping";
         public string LoginUser { get; set; } = string.Empty;
         public string UserType { get; set; } = string.Empty;
+        public string ErrorMessage { get; set; } = string.Empty;
         public int NumPanier { get; set; }
         public string PrenomClient { get; set; } = string.Empty;
         public string NomClient { get; set; } = string.Empty;
         public string PhoneClient { get; set; } = string.Empty;
         public string EmailClient { get; set; } = string.Empty;
-        public List<Panier_Cl> listPanier { get; set; }
         private int _counter { get; set; } = 0;
         public void OnGet()
         {
@@ -45,24 +45,24 @@ namespace Quantrack.Pages.Projet
             using (var cnx = new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new MySqlCommand("select * from panier where user_login=@login", cnx);
+                var cm = new MySqlCommand("select * from panier where login_user=@login", cnx);
                 cm.Parameters.AddWithValue("@login", this.LoginUser);
                 var reader = cm.ExecuteReader();
-                listPanier = new List<Panier_Cl>();
+                var listPanier = new List<Panier_Cl>();
                 while (reader.Read())
                 {
-                    var pan = new Panier_Cl();
-                    pan.Id = reader.GetInt32(0);
-                    pan.ServideId = reader.GetInt32(1);
-                    pan.NomProjet = reader.GetString(2);
-                    pan.Description = reader.GetString(3);
-                    pan.DateDebut = reader.GetDateTime(4);
-                    pan.DateFin = reader.GetDateTime(5);
-                    pan.Statut = reader.GetString(6);
-                    pan.LoginUser = reader.GetString(7);
-                    pan.Montant = reader.GetDecimal(8);
-
-                    listPanier.Add(pan);
+                    listPanier.Add(new Panier_Cl
+                        {
+                            Id = reader.GetInt32(0),
+                            ServideId = reader.GetInt32(1),
+                            NomProjet = reader.GetString(2),
+                            Description = reader.GetString(3),
+                            DateDebut = reader.GetDateTime(4),
+                            DateFin = reader.GetDateTime(5),
+                            Statut = reader.GetString(6),
+                            LoginUser = reader.GetString(7),
+                            Montant = reader.GetDecimal(8)
+                        });
                 }
                 return listPanier;
             }

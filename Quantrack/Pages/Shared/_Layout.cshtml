@@ -65,20 +65,26 @@
                         <li><a><i class="fa-solid fa-diagram-project"></i> Projets</a></li>
                         <li>
                             <ul>
-                                <li><a href="/Projet/Creerprojet">Nouveau projet</a></li>
-                                <li><a href="/Projet/Panier">Voir le panier</a></li>
+                                @if (Model.UserType == "Admin" || Model.UserType == "Std")
+                                {
+                                    <li><a href="/Projet/Creerprojet">Nouveau projet</a></li>
+                                    <li><a href="/Projet/Panier">Voir le panier</a></li>
+                                }                                
                                 <li><a>Les derniers projets</a></li>
                             </ul>
                         </li>
                     </ul>
-                    <ul class="menu-list">
-                        <li><a><i class="fa-solid fa-person-rays"></i> Client</a></li>
-                        <li>
-                            <ul>
-                                <li><a>Les clients</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                    @if (Model.UserType == "Admin" || Model.UserType == "Std")
+                    {
+                        <ul class="menu-list">
+                            <li><a><i class="fa-solid fa-person-rays"></i> Client</a></li>
+                            <li>
+                                <ul>
+                                    <li><a>Les clients</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    }                    
                     @if (Model.UserType == "Admin")
                     {
                         <p class="menu-label">Administrateur</p>

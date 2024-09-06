@@ -4,19 +4,32 @@
     ViewData["title"] = "Tableau de bord";
 }
 <div>
+    @* <div class="columns is-centered">
+        <div class="column">
+            <p class="subtitle">Nb Enregistrement : @Model.enregistrer</p>
+        </div>
+    </div> *@
+    @if(Model.ErrorMessage != string.Empty)
+    {
+        <div class="notification is-danger is-light">
+            <button class="delete"></button>
+            <h3 class="subtitle">Erreur !</h3>
+            <p>@Model.ErrorMessage</p>
+        </div>
+    }
     <div class="columns is-centered">
         <div class="column m-2 has-text-centered box">
-            <h3 class="title">+50</h3>
+            <h3 class="title">+55</h3>
             <h5 class="subtitle">Projets réalisés</h5>
             <span class="tag is-warning">Graphic Design</span>
         </div>
         <div class="column m-2 has-text-centered box">
-            <h3 class="title">+5</h3>
+            <h3 class="title">@Model.NbProjectItDev</h3>
             <h5 class="subtitle">Projets réalisés</h5>
             <span class="tag is-success">IT Dev.</span>
         </div>
         <div class="column m-2 has-text-centered box">
-            <h3 class="title">+55</h3>
+            <h3 class="title">@Model.NbClients</h3>
             <h5 class="subtitle">Clients</h5>
             <span class="tag is-info">Client</span>
         </div>
@@ -39,19 +52,22 @@
                                 </tr>                                
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Logo Design</td>
-                                    <td>2024-08-17</td>
-                                    <td><a class="tag is-success">Details</a></td>
-                                </tr>
+                                @foreach(var p in Model.ProjectInProgress)
+                                {
+                                    <tr>
+                                        <td>@p.Id</td>
+                                        <td>@p.NomProjet</td>
+                                        <td>@p.DateFin</td>
+                                        <td><a class="tag is-success">Details</a></td>
+                                    </tr>
+                                }                                
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <footer class="card-footer">
                     <span class="card-footer-item">
-                        <i class="fa-solid fa-spinner"></i>&nbsp; Vous avez 15 projets en cours...
+                        <i class="fa-solid fa-spinner"></i>&nbsp; Vous avez @Model.ProjectInProgress.Count projet(s) en cours...
                     </span>
                 </footer>
             </div>
@@ -72,18 +88,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Logo Design</td>
-                                <td>2024-08-17</td>
-                                <td><a class="tag is-warning">Voir</a></td>
-                            </tr>
+                            @foreach (var p in Model.ProjectToClose)
+                            {
+                                <tr>
+                                    <td>@p.Id</td>
+                                    <td>@p.NomProjet</td>
+                                    <td>@p.DateFin</td>
+                                    <td><a class="tag is-success">Details</a></td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
                 <footer class="card-footer">
                     <span class="card-footer-item">
-                        <i class="fa-solid fa-spinner"></i>&nbsp; Vous devez clôturer 3 projets
+                        <i class="fa-solid fa-spinner"></i>&nbsp; Vous devez clôturer @Model.ProjectToClose.Count projets
                     </span>
                 </footer>
             </div>
