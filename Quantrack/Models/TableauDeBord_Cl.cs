@@ -14,24 +14,34 @@ namespace Quantrack.Models
             using (var cnx = new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var User = this.LoginUtilisateur;
+                //var User = this.LoginUtilisateur;
                 var projets = new List<Projet_Cl>();
                 using (var cm = new MySqlCommand("ProjetsEnCours", cnx))
                 {
                     cm.CommandType = System.Data.CommandType.StoredProcedure;
-                    cm.Parameters.AddWithValue("v_user", User);
+                    var user = new Utilisateur_Cl();
+                    user.Login = LoginUtilisateur;
+                    cm.Parameters.AddWithValue("v_user", user.GetIdUser());
                     cm.Parameters.AddWithValue("v_statut", "en cours");
                     var reader = cm.ExecuteReader();
-                    while (reader.Read())
+                    if(reader.HasRows)
                     {
-                        projets.Add(new Projet_Cl
+                        while (reader.Read())
                         {
-                            Id = reader.GetInt32(0),
-                            ServideId = reader.GetInt32(1),
-                            NomProjet = reader.GetString(2),
-                            DateFin = reader.GetDateTime(5)
-                        });
+                            projets.Add(new Projet_Cl
+                            {
+                                Id = reader.GetInt32(0),
+                                ServideId = reader.GetInt32(1),
+                                NomProjet = reader.GetString(2),
+                                DateFin = reader.GetDateTime(5)
+                            });
+                        }
                     }
+                    else
+                    {
+
+                    }
+                    
                 }
                 return projets;
             }
@@ -41,12 +51,14 @@ namespace Quantrack.Models
             using (var cnx = new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var User = this.LoginUtilisateur;
+                var User = new Utilisateur_Cl();
+
+                User.Login = LoginUtilisateur;
                 var projets = new List<Projet_Cl>();
                 using (var cm = new MySqlCommand("ProjetACloturer", cnx))
                 {
                     cm.CommandType = System.Data.CommandType.StoredProcedure;
-                    cm.Parameters.AddWithValue("v_user", User);
+                    cm.Parameters.AddWithValue("v_user", User.GetIdUser());
                     cm.Parameters.AddWithValue("v_statut", "en cours");
                     var reader = cm.ExecuteReader();
                     while (reader.Read())
@@ -72,7 +84,7 @@ namespace Quantrack.Models
                 using (var cm = new MySqlCommand("select GetNumDevCompletedProjetcs(@statut,@service)", cnx))
                 {
                     cm.Parameters.AddWithValue("@statut", "Clôturé");
-                    cm.Parameters.AddWithValue("@service", 1);
+                    cm.Parameters.AddWithValue("@service", 3);
                     number = (int)cm.ExecuteScalar();
                 }
                 return number;

@@ -41,7 +41,7 @@ namespace Quantrack.Pages.Dash
                     this.NumPanier = panier.CountInCart();
                     ProjectInProgress = new TableauDeBord_Cl(LoginUser).GetProjectInProgress();
                     ProjectToClose = new TableauDeBord_Cl(LoginUser).GetProjetToClose();
-                    //NbProjectDesign = new TableauDeBord_Cl(LoginUser).GetNumDesignCompletedProjects();
+                    NbProjectDesign = new TableauDeBord_Cl(LoginUser).GetNumDesignCompletedProjects();
                     NbClients = new TableauDeBord_Cl(LoginUser).GetNumClientsCompletedProjets();
                     NbProjectItDev = new TableauDeBord_Cl(LoginUser).GetNumDevCompletedProjetcs();
                 }

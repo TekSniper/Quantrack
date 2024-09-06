@@ -30,5 +30,6 @@ namespace Quantrack.Models
                     return false;
             }
         }
+        //public int GetNumClient
     }
 }

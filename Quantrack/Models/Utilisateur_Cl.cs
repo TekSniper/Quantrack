@@ -99,8 +99,9 @@ namespace Quantrack.Models
             using(var cnx=new DbConnexion().GetConnection())
             {
                 cnx.Open();
-                var cm = new MySqlCommand("select * from utilisateur where login=@login", cnx);
-                cm.Parameters.AddWithValue("@login",Login.ToLower());
+                var cm = new MySqlCommand("GetIdUser", cnx);
+                cm.CommandType = CommandType.StoredProcedure;
+                cm.Parameters.AddWithValue("v_login",Login.ToLower());
                 var reader = cm.ExecuteReader();
                 if( reader.Read())
                     this.Id = reader.GetInt32(0);
